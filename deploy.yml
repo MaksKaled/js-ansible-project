@@ -6,14 +6,31 @@
         state: present
         update_cache: yes
 
+    - name: Установить зависимости npm
+      docker_container:
+        name: js_app_install
+        image: "node:14"
+        state: started
+        volumes:
+          - "./simple-js-project:/app"  # Монтируем папку с кодом в контейнер
+        working_dir: /app
+        command: "npm install"
+      register: npm_install_result
+
+    - name: Удалить контейнер установки зависимостей
+      docker_container:
+        name: js_app_install
+        state: absent
+      when: npm_install_result is succeeded
+
     - name: Запустить контейнер с приложением
       docker_container:
         name: js_app
-        image: "node:14"  # Используем корректный образ Node.js
+        image: "node:14"
         state: started
         ports:
           - "3000:3000"
         volumes:
-          - "./simple-js-project:/app"  # Монтируем папку с кодом в контейнер
-        working_dir: /app  # Устанавливаем рабочую директорию
-        entrypoint: "/bin/bash -c 'npm install && node server.js'"
+          - "./simple-js-project:/app"
+        working_dir: /app
+        command: "node server.js"
