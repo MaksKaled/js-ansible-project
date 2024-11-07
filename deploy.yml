@@ -12,7 +12,7 @@
         image: "node:14"
         state: started
         volumes:
-          - "./simple-js-project:/simple-js-project"  # Монтируем папку с кодом в контейнер
+          - "./js-ansible-project:/simple-js-project"  # Монтируем папку с кодом в контейнер
         working_dir: /simple-js-project
         command: "npm install"
       register: npm_install_result
@@ -31,6 +31,6 @@
         ports:
           - "3000:3000"
         volumes:
-          - "./simple-js-project:/simple-js-project"
+          - "./js-ansible-project:/simple-js-project"
         working_dir: /simple-js-project
         command: "node server.js"
