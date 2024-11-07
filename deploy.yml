@@ -12,8 +12,8 @@
         image: "node:14"
         state: started
         volumes:
-          - "./simple-js-project:/app"  # Монтируем папку с кодом в контейнер
-        working_dir: /app
+          - "./simple-js-project:/simple-js-project"  # Монтируем папку с кодом в контейнер
+        working_dir: /simple-js-project
         command: "npm install"
       register: npm_install_result
 
@@ -31,6 +31,6 @@
         ports:
           - "3000:3000"
         volumes:
-          - "./simple-js-project:/app"
+          - "./simple-js-project:/simple-js-project"
         working_dir: /app
         command: "node server.js"
