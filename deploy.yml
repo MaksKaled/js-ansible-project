@@ -32,5 +32,5 @@
           - "3000:3000"
         volumes:
           - "./simple-js-project:/simple-js-project"
-        working_dir: /app
+        working_dir: /simple-js-project
         command: "node server.js"
