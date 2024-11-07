@@ -16,4 +16,5 @@
         volumes:
           - "./simple-js-project:/app"  # Монтируем папку с кодом в контейнер
         working_dir: /app  # Устанавливаем рабочую директорию
-        command: "npm install && node server.js"  # Устанавливаем зависимости и запускаем сервер
+        entrypoint: "npm install"
+        command: "node server.js"  # Устанавливаем зависимости и запускаем сервер
