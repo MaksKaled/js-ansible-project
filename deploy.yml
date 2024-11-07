@@ -1,0 +1,18 @@
+- hosts: localhost
+  tasks:
+    - name: установить Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: запустить контейнер с приложением
+      docker_container:
+        name: js_app
+        image: "hone:14"
+        state: started
+        ports:
+          - "3000:3000"
+        valumes:
+          - "./simple-js-project:/app"
+        command: "npm install && node /app/server.js"
